@@ -2,10 +2,10 @@ steps:
   # Docker Build
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 
-           'asia-south1-docker.pkg.dev/fiery-chess-357609/firealarm/firealarm-pd:${COMMIT_SHA}', 
+           'asia-south1-docker.pkg.dev/fiery-chess-357609/firealarm/firealarm-pd-${COMMIT_SHA}', 
            '.']
 
   # Docker Push
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 
-           'asia-south1-docker.pkg.dev/fiery-chess-357609/firealarm/firealarm-pd:${COMMIT_SHA}']
+           'asia-south1-docker.pkg.dev/fiery-chess-357609/firealarm/firealarm-pd-${COMMIT_SHA}']
