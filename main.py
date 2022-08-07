@@ -4,6 +4,7 @@ from flask import jsonify
 import functions_framework
 from slack.signature import SignatureVerifier
 import requests
+from jinja2 import Environment, FileSystemLoader
 
 
 def trigger_pd_incident(request):
@@ -38,7 +39,7 @@ def send_message_to_slack_channel(request):
   channel_name = request.form['channel_name']
   text = request.form['text']
 
-  message = ("Incident was triggered by"+ '\t' + str(user_name) + '\t' + "in the channel" + '\t' + str(channel_name))
+  #message = ("Incident was triggered by"+ '\t' + str(user_name) + '\t' + "in the channel" + '\t' + str(channel_name))
   title = (f"{text}")
   slack_data = {
       "username": user_name,
@@ -46,11 +47,13 @@ def send_message_to_slack_channel(request):
       "channel" : channel_name,
       "attachments": [
           {
-              "color": "#9733EE",
+              "color": "#E01E5A",
               "fields": [
                   {
-                      "title": title,
-                      "value": message,
+                      "text": {
+				"type": "mrkdwn",
+				"text": "*Incident Description:* {{ title }} \n *Triggered User:* {{ user_name }} \n *Triggered Channel:* {{ channel_name }}"
+			}
                       "short": "false",
                   }
               ]
@@ -69,7 +72,7 @@ def format_message_slack(request):
   text = request.form['text']
   message = {
         'response_type': 'in_channel',
-        'text': f'Text: {text}. Username: {user_name}, Channel Name: {channel_name}',
+        'text': f'Incident Name: {text}. Username: {user_name}, Channel Name: {channel_name}',
     }
   return message
 
