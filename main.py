@@ -39,26 +39,21 @@ def send_message_to_slack_channel(request):
   channel_name = request.form['channel_name']
   text = request.form['text']
 
-  #message = ("Incident was triggered by"+ '\t' + str(user_name) + '\t' + "in the channel" + '\t' + str(channel_name))
+  message = ("Incident was triggered by"+ '\t' + str(user_name) + '\t' + "in the channel" + '\t' + str(channel_name))
   title = (f"{text}")
   slack_data = {
       "username": user_name,
       "icon_emoji": ":satellite:",
       "channel" : channel_name,
-      "attachments": [
-          {
-              "color": "#E01E5A",
-              "fields": [
-                  {
-                      "text": {
+      "blocks": [
+		{
+			"type": "section",
+			"text": {
 				"type": "mrkdwn",
-				"text": "*Incident Description:* {{ title }} \n *Triggered User:* {{ user_name }} \n *Triggered Channel:* {{ channel_name }}"
+				"text": "Incident Description:" + str(title) + '\n' + "Trigged by:" + str(user_name) + '\n' + "Triggered in channel:" + str(channel_name),
 			}
-                      "short": "false",
-                  }
-              ]
-          }
-      ]
+		}
+	]
   }
   
   headers = {'Content-Type': "application/json"}
