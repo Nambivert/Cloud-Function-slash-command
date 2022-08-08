@@ -5,5 +5,6 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'push', 'asia-south1-docker.pkg.dev/fiery-chess-357609/firealarm/firealarm-test:$COMMIT_SHA']
  
-options:
-  logging: CLOUD_LOGGING_ONLY
+logsBucket: 'gs://firealarm-log'
+    options:
+      logging: GCS_ONLY
