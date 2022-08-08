@@ -82,6 +82,10 @@ def verify_signature(request):
 # [END functions_verify_webhook]
 
 @app.route("/")
+def home():
+  return "It Works!"
+
+@app.route("/command", methods=["POST"])
 def slack_firealarm(request):
   # Your code here
   if request.method != 'POST':
