@@ -53,7 +53,7 @@ def send_message_to_slack_channel(request):
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": "Incident Description:" + str(title) + '\n' + "Trigged by:" + str(user_name) + '\n' + "Triggered in channel:" + str(channel_name),
+				"text": "Incident Description:" + '\t' + str(title) + '\n' + "Trigged by:" + '\t' + str(user_name) + '\n' + "Triggered in channel:" + '\t' + str(channel_name),
 			}
 		}
 	]
