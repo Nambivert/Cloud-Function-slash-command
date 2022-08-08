@@ -86,7 +86,7 @@ def home():
   return "It Works!"
 
 @app.route("/command", methods=["POST"])
-def slack_firealarm(request):
+def slack_firealarm():
   # Your code here
   if request.method != 'POST':
         return 'Only POST requests are accepted', 405
