@@ -1,11 +1,13 @@
 import os
 import json
+from flask import Flask
 from flask import jsonify
 import functions_framework
 from slack.signature import SignatureVerifier
 import requests
 from jinja2 import Environment, FileSystemLoader
 
+app = Flask(__name__)
 
 def trigger_pd_incident(request):
     # Triggers a PagerDuty incident without a previously generated incident key
@@ -79,8 +81,7 @@ def verify_signature(request):
         raise ValueError('Invalid request/credentials.')
 # [END functions_verify_webhook]
 
-# Register an HTTP function with the Functions Framework
-@functions_framework.http
+@app.route("/")
 def slack_firealarm(request):
   # Your code here
   if request.method != 'POST':
@@ -92,3 +93,7 @@ def slack_firealarm(request):
   send_message_to_slack_channel(request)
   # Return an HTTP response
   return jsonify(res)
+
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+
