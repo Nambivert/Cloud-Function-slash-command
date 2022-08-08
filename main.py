@@ -1,6 +1,7 @@
 import os
 import json
 from flask import Flask
+from flask import request
 from flask import jsonify
 import functions_framework
 from slack.signature import SignatureVerifier
@@ -85,7 +86,7 @@ def verify_signature(request):
 def home():
   return "It Works!"
 
-@app.route("/command", methods=["POST"])
+@app.route("/firealarm", methods=["POST"])
 def slack_firealarm():
   # Your code here
   if request.method != 'POST':
@@ -100,4 +101,3 @@ def slack_firealarm():
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
-
