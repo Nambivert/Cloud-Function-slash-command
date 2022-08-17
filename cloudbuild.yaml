@@ -7,13 +7,6 @@ steps:
 # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
    entrypoint: gcloud
-   args:
-   - 'run'
-   - 'deploy'
-   - 'cloud-run-firealarm-slash-command'
-   - '--image'
-   - 'gcr.io/fiery-chess-357609/slack-slash-command:$COMMIT_SHA'
-   - '--region'
-   - 'us-central1'
+   args: ['run', 'deploy', 'cloud-run-firealarm-slash-command', '--image', 'asia-south1-docker.pkg.dev/fiery-chess-357609/firealarm/firealarm-test:$COMMIT_SHA', '--region', 'us-central1']
 options:
   logging: CLOUD_LOGGING_ONLY
